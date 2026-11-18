@@ -1,0 +1,18 @@
+[project]
+name = "gym-crowdedness-forecasting"
+version = "0.1.0"
+description = "Previsão da lotação de uma academia universitária com LSTM"
+readme = "README.md"
+requires-python = ">=3.11,<3.13"
+dependencies = [
+    "jupyter>=1.1",
+    "matplotlib>=3.9",
+    "numpy>=2.0",
+    "pandas>=2.2",
+    "scikit-learn>=1.5",
+    "statsmodels>=0.14",
+    "torch>=2.4",
+]
+
+[tool.uv]
+package = false
