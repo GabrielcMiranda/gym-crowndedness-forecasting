@@ -36,12 +36,11 @@ def code_problems(index, source):
 
 
 def triad_problems(cells, index):
-    follow_up = cells[index + 1 : index + 4]
-    expected = ["code", "code", "markdown"]
+    follow_up = [cell.cell_type for cell in cells[index + 1 : index + 4]]
     title = cells[index].source.strip()
     if len(title.splitlines()) != 1:
         return [f"célula {index}: o título de problema deve ter uma única linha"]
-    if [cell.cell_type for cell in follow_up] != expected:
+    if follow_up[:2] != ["code", "code"] or follow_up[2:] not in ([], ["markdown"]):
         return [f"célula {index}: '{title}' deve ser seguido de duas células de código e depois de Markdown"]
     return []
 
