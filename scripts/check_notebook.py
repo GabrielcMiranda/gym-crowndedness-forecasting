@@ -6,7 +6,12 @@ import tokenize
 
 import nbformat
 
-HEADING_PATTERN = re.compile(r"^### 3\.\d+ Resolvendo")
+HEADING_PATTERN = re.compile(r"^### 3\.\d+ (Resolvendo\b|.*\?\s*$)")
+
+
+def is_problem_title(markdown_source):
+    stripped = markdown_source.strip()
+    return bool(stripped) and HEADING_PATTERN.match(stripped.splitlines()[0]) is not None
 
 
 def has_comment(source):
@@ -58,7 +63,7 @@ def check_notebook(path):
         if cell.cell_type == "markdown":
             if "<<" in cell.source:
                 problems.append(f"célula {index}: marcador '<<' pendente")
-            if HEADING_PATTERN.match(cell.source.strip()):
+            if is_problem_title(cell.source):
                 problems.extend(triad_problems(cells, index))
     return problems
 
